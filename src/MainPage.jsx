@@ -9,7 +9,7 @@ function MainPage() {
 
   useEffect(() => {
     // GET request using fetch inside useEffect React hook
-    fetch("http://localhost:5000/api/unis", {
+    fetch("https://backend-lbud.onrender.com/api/unis", {
       method: "GET",
     })
       .then((response) => {
@@ -23,7 +23,7 @@ function MainPage() {
   const getUni = (e) => {
     console.log(e.target.previousSibling.innerHTML);
     fetch(
-      `http://localhost:5000/api/uniSearch/${e.target.previousSibling.innerHTML}`,
+      `https://backend-lbud.onrender.com/api/uniSearch/${e.target.previousSibling.innerHTML}`,
       {
         method: "GET",
       }
