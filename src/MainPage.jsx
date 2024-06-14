@@ -66,6 +66,8 @@ function MainPage() {
             <tr>
               <th>اسم الجامعة</th>
               <th>المدينة</th>
+              <th>بداية التسجيل</th>
+              <th>نهاية التسجيل</th>
               <th>الأقساط السنوية</th>
               <th>رابط</th>
             </tr>
@@ -75,6 +77,8 @@ function MainPage() {
               <tr key={uni.id}>
                 <td>{uni.name}</td>
                 <td>{uni.city}</td>
+                <td>{uni.applyStart}</td>
+                <td>{uni.applyEnd}</td>
                 <td>
                   <a
                     href={uni.priceLink}
