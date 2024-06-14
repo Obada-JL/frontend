@@ -85,7 +85,7 @@ function MainPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    اضغط للحصول على الاقساط السنوية
+                    الاقساط السنوية
                   </a>
                 </td>
                 <td>
