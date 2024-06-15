@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTelegram, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import Logo from "./assets/educ consultant logo.jpg";
@@ -6,8 +6,10 @@ import "./MainPage.css";
 
 function MainPage() {
   const [unis, setUnis] = useState([]);
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
+    setLoading(true);
     // GET request using fetch inside useEffect React hook
     fetch("https://backend-lbud.onrender.com/api/unis", {
       method: "GET",
@@ -15,13 +17,16 @@ function MainPage() {
       .then((response) => {
         return response.json();
       })
-      .then((data) => setUnis(data))
+      .then((data) => {
+        setUnis(data), setLoading(false);
+      })
       .catch((err) => console.log(err));
 
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
   const getUni = (e) => {
     console.log(e.target.previousSibling.innerHTML);
+    setLoading(true);
     fetch(
       `https://backend-lbud.onrender.com/api/uniSearch/${e.target.previousSibling.innerHTML}`,
       {
@@ -31,9 +36,23 @@ function MainPage() {
       .then((response) => {
         return response.json();
       })
-      .then((data) => setUnis(data))
+      .then((data) => {
+        setUnis(data), setLoading(false);
+      })
       .catch((err) => console.log(err));
   };
+  const loaderContainer = useRef();
+  const tableBody = useRef();
+  useEffect(() => {
+    console.log(loading);
+    if (loading === true) {
+      loaderContainer.current.style.display = "flex";
+      tableBody.current.style.display = "none";
+    } else {
+      loaderContainer.current.style.display = "none";
+      tableBody.current.style.display = "table-row-group";
+    }
+  }, [loading]);
   return (
     <>
       <nav className="navbar border-bottom border-secondary bg-body-secondary">
@@ -72,7 +91,8 @@ function MainPage() {
               <th>رابط</th>
             </tr>
           </thead>
-          <tbody>
+
+          <tbody ref={tableBody}>
             {unis.map((uni) => (
               <tr key={uni.id}>
                 <td>{uni.name}</td>
@@ -101,6 +121,22 @@ function MainPage() {
             ))}
           </tbody>
         </table>
+        <div className="loaderContainer" ref={loaderContainer}>
+          <div class="loader">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+            <div class="bar4"></div>
+            <div class="bar5"></div>
+            <div class="bar6"></div>
+            <div class="bar7"></div>
+            <div class="bar8"></div>
+            <div class="bar9"></div>
+            <div class="bar10"></div>
+            <div class="bar11"></div>
+            <div class="bar12"></div>
+          </div>
+        </div>
         <footer
           id="sticky-footer"
           class="flex-shrink-0 py-4 bg-dark text-white-50"
