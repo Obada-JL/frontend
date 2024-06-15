@@ -20,7 +20,9 @@ function MainPage() {
       .then((data) => {
         setUnis(data), setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err), setLoading(false);
+      });
 
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
